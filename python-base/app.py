@@ -1,5 +1,7 @@
 import os
 
+restaurantes = ['Picanha', 'Cheddar Bacon']
+
 def exibir_nome_do_Programa():
     print('''
 ██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
@@ -24,23 +26,56 @@ def exibir_opcoes():
     print('4. Sair\n')
 
 def finalizar_app():
-    os.system("clear")
-    print("Finalizando o App\n")
+    exibir_subtitulo('Finalizar App')
+
+def opcao_invalida():
+    print('Opção inválida')
+    voltar_ao_menu_principal()
+
+def voltar_ao_menu_principal():
+    input('\nDigite uma tecla para voltar ao menu inicial: ')
+    main()
+
+def exibir_sutitulo(texto):
+    os.system('clear')
+    print(texto)
+
+def cadastrar_restaurante():
+    exibir_sutitulo('Cadastro de Restaurantes')
+    print()
+    nome_dos_restaurantes = input('Digite o nome do Restaurante: ')
+    restaurantes.append(nome_dos_restaurantes)
+    print(f'O Restaurante {nome_dos_restaurantes}, foi cadastrado com sucesso!\n')
+    voltar_ao_menu_principal()
+    
+
+def listar_restaurantes(): 
+    exibir_sutitulo('Listar Restaurantes')
+    for restaurante in restaurantes:
+        print(f'.{restaurante}')
+        voltar_ao_menu_principal()
+
 
 
 def escolher_opcao():
-    opcao_escolhida = int(input('Escolha uma opção: '))
+    try:
+        opcao_escolhida = int(input('Escolha uma opção: '))
 
-    if opcao_escolhida == 1:
-        print("Cadastro Restaurante")
-    elif opcao_escolhida == 2:
-        print(" Listar Restaurante")
-    elif opcao_escolhida == 3:
-        print("Ativar Restaurante")
-    else:
-        finalizar_app()
+        if opcao_escolhida == 1:
+            cadastrar_restaurante()
+        elif opcao_escolhida == 2:
+            listar_restaurantes()
+        elif opcao_escolhida == 3:
+            print("Ativar Restaurante")
+        elif opcao_escolhida == 4:
+            finalizar_app()
+        else:
+            opcao_invalida()
+    except:
+        opcao_invalida()
 
 def main():
+    os.system('clear')
     exibir_nome_do_Programa()
     exibir_opcoes()
     escolher_opcao()
